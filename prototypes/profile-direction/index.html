@@ -1,0 +1,1263 @@
+<!doctype html>
+<!--
+  PROTOTYPE — throwaway UI for Wayfinder ticket "Prototype the one-page responsive profile direction".
+  Three variants, switchable with ?variant=A|B|C.
+  Run from the repository root: python3 -m http.server 4173
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Responsive Professional Profile direction prototypes for Nuttapol Phomthon.">
+    <link rel="icon" href="data:,">
+    <title>Career Commit Graph prototype — Nuttapol Phomthon</title>
+    <style>
+      @layer base, variants, prototype;
+
+      @layer base {
+        :root {
+          color-scheme: light;
+          font-synthesis: none;
+        }
+
+        html {
+          scroll-behavior: smooth;
+        }
+
+        body {
+          min-inline-size: 20rem;
+          margin: 0;
+          background: #e8edf3;
+          color: #13233a;
+        }
+
+        body,
+        button {
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        p,
+        ol,
+        ul {
+          margin-block-start: 0;
+        }
+
+        img {
+          display: block;
+          max-inline-size: 100%;
+          block-size: auto;
+        }
+
+        a {
+          color: inherit;
+        }
+
+        button {
+          color: inherit;
+        }
+
+        :where(a, button):focus-visible {
+          outline: 0.1875rem solid currentColor;
+          outline-offset: 0.25rem;
+        }
+
+        [hidden] {
+          display: none !important;
+        }
+
+        .skip-link {
+          position: fixed;
+          inset-block-start: 0.75rem;
+          inset-inline-start: 0.75rem;
+          z-index: 20;
+          translate: 0 -200%;
+          padding: 0.75rem 1rem;
+          border: 0.125rem solid currentColor;
+          background: white;
+          color: #13233a;
+          font-weight: 700;
+        }
+
+        .skip-link:focus {
+          translate: 0;
+        }
+
+        .eyebrow,
+        .date,
+        .utility {
+          font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+          font-size: 0.78rem;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          line-height: 1.4;
+          text-transform: uppercase;
+        }
+
+        .contact-list,
+        .skill-list,
+        .role-list {
+          padding: 0;
+          list-style: none;
+        }
+
+        .summary {
+          max-inline-size: 47rem;
+          line-height: 1.65;
+          text-wrap: pretty;
+        }
+
+        .variant {
+          min-block-size: 100dvh;
+          padding-block-end: 7rem;
+        }
+      }
+
+      @layer variants {
+        /* A — Career Commit Graph */
+        .variant-a {
+          --a-canvas: #f4f7fb;
+          --a-surface: #ffffff;
+          --a-ink: #13233a;
+          --a-muted: #50627a;
+          --a-signal: #2457a6;
+          --a-rule: #b8c7da;
+          background:
+            linear-gradient(90deg, color-mix(in oklab, var(--a-signal), transparent 94%) 1px, transparent 1px) 0 0 / 3rem 3rem,
+            var(--a-canvas);
+          color: var(--a-ink);
+        }
+
+        .a-layout {
+          display: grid;
+          grid-template-columns: minmax(17rem, 0.72fr) minmax(0, 1.35fr);
+          gap: clamp(2.5rem, 6vw, 7rem);
+          inline-size: min(100% - 3rem, 74rem);
+          margin-inline: auto;
+          padding-block: clamp(2rem, 5vw, 5rem);
+        }
+
+        .a-profile {
+          align-self: start;
+          position: sticky;
+          inset-block-start: 2rem;
+          padding-inline-end: clamp(1rem, 3vw, 3rem);
+          border-inline-end: 1px solid var(--a-rule);
+        }
+
+        .a-avatar {
+          inline-size: min(15rem, 72vw);
+          margin-block: 1.75rem 2rem;
+          border: 1px solid var(--a-rule);
+          border-radius: 0.75rem;
+          box-shadow: 0.75rem 0.75rem 0 var(--a-rule);
+        }
+
+        .a-profile h1 {
+          max-inline-size: 10ch;
+          margin-block-end: 0.6rem;
+          font-size: clamp(2.8rem, 5vw, 5.3rem);
+          letter-spacing: -0.065em;
+          line-height: 0.93;
+          text-wrap: balance;
+        }
+
+        .a-role {
+          margin-block-end: 1.75rem;
+          color: var(--a-signal);
+          font-size: 1.08rem;
+          font-weight: 750;
+        }
+
+        .a-profile .summary {
+          margin-block-end: 2rem;
+          color: var(--a-muted);
+          font-size: 1rem;
+        }
+
+        .a-contacts {
+          border-block-start: 1px solid var(--a-rule);
+        }
+
+        .a-contacts li {
+          border-block-end: 1px solid var(--a-rule);
+        }
+
+        .a-contacts a {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          min-block-size: 2.75rem;
+          padding-block: 0.55rem;
+          font-weight: 680;
+          text-decoration-thickness: 0.08em;
+          text-underline-offset: 0.25em;
+        }
+
+        .a-contacts a:hover {
+          color: var(--a-signal);
+        }
+
+        .a-content {
+          min-inline-size: 0;
+          padding-block-start: clamp(0rem, 12vw, 9rem);
+        }
+
+        .a-section + .a-section {
+          margin-block-start: clamp(4rem, 9vw, 8rem);
+        }
+
+        .a-section > h2 {
+          margin-block-end: 2.25rem;
+          color: var(--a-signal);
+          font-size: 0.82rem;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+        }
+
+        .a-company + .a-company {
+          margin-block-start: 3.5rem;
+        }
+
+        .a-company > h3 {
+          margin-block-end: 1.5rem;
+          font-size: clamp(1.55rem, 3vw, 2.35rem);
+          letter-spacing: -0.035em;
+          line-height: 1.1;
+        }
+
+        .a-role-list {
+          position: relative;
+          margin: 0;
+          padding-inline-start: 2.5rem;
+          counter-reset: role;
+        }
+
+        .a-role-list::before {
+          position: absolute;
+          inset-block: 0.35rem 0.5rem;
+          inset-inline-start: 0.4rem;
+          inline-size: 1px;
+          background: var(--a-rule);
+          content: "";
+        }
+
+        .a-role-item {
+          position: relative;
+          padding-block-end: 2.2rem;
+        }
+
+        .a-role-item:last-child {
+          padding-block-end: 0;
+        }
+
+        .a-role-item::before {
+          position: absolute;
+          inset-block-start: 0.32rem;
+          inset-inline-start: -2.45rem;
+          inline-size: 0.85rem;
+          aspect-ratio: 1;
+          border: 0.2rem solid var(--a-canvas);
+          border-radius: 50%;
+          background: var(--a-signal);
+          box-shadow: 0 0 0 1px var(--a-signal);
+          content: "";
+        }
+
+        .a-role-item .date {
+          display: block;
+          margin-block-end: 0.55rem;
+          color: var(--a-muted);
+        }
+
+        .a-role-item h4 {
+          margin-block-end: 0.55rem;
+          font-size: 1.12rem;
+          line-height: 1.3;
+        }
+
+        .a-role-item p {
+          margin-block-end: 0;
+          color: var(--a-muted);
+          line-height: 1.65;
+          text-wrap: pretty;
+        }
+
+        .a-skill-groups {
+          border-block-start: 1px solid var(--a-rule);
+        }
+
+        .a-skill-group {
+          display: grid;
+          grid-template-columns: minmax(9rem, 0.7fr) minmax(0, 1.3fr);
+          gap: 1.5rem;
+          padding-block: 1.25rem;
+          border-block-end: 1px solid var(--a-rule);
+        }
+
+        .a-skill-group h3 {
+          margin: 0;
+          font-size: 0.92rem;
+          line-height: 1.4;
+        }
+
+        .a-skill-group ul {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem 1rem;
+          margin: 0;
+          color: var(--a-muted);
+          line-height: 1.5;
+        }
+
+        .a-skill-group li:not(:last-child) {
+          padding-inline-end: 1rem;
+          border-inline-end: 1px solid var(--a-rule);
+        }
+
+        /* B — Scoped Experience Matrix */
+        .variant-b {
+          --b-canvas: #f1f6f6;
+          --b-surface: #ffffff;
+          --b-ink: #14282d;
+          --b-petrol: #0e626c;
+          --b-secondary: #355a60;
+          --b-grid: #b9cdd0;
+          background: var(--b-canvas);
+          color: var(--b-ink);
+          font-family: Arial, "Helvetica Neue", system-ui, sans-serif;
+        }
+
+        .b-shell {
+          inline-size: min(100% - 3rem, 76rem);
+          margin-inline: auto;
+          padding-block: clamp(2rem, 6vw, 5.5rem);
+        }
+
+        .b-hero {
+          display: grid;
+          grid-template-columns: minmax(0, 1.25fr) minmax(15rem, 0.75fr);
+          gap: clamp(2rem, 7vw, 7rem);
+          align-items: end;
+          padding-block-end: clamp(3rem, 7vw, 6rem);
+          border-block-end: 0.125rem solid var(--b-ink);
+        }
+
+        .b-heading-row {
+          display: grid;
+          grid-template-columns: auto minmax(0, 1fr);
+          gap: 1.5rem;
+          align-items: end;
+        }
+
+        .b-avatar {
+          inline-size: clamp(6.5rem, 12vw, 9.5rem);
+          border: 0.125rem solid var(--b-ink);
+          border-radius: 50%;
+        }
+
+        .b-hero h1 {
+          max-inline-size: 11ch;
+          margin-block-end: 0.7rem;
+          font-size: clamp(3rem, 7vw, 6.8rem);
+          letter-spacing: -0.075em;
+          line-height: 0.85;
+          text-wrap: balance;
+        }
+
+        .b-role {
+          margin: 0;
+          color: var(--b-petrol);
+          font-size: clamp(1.05rem, 2vw, 1.45rem);
+          font-weight: 800;
+        }
+
+        .b-intro .summary {
+          margin-block-end: 1.5rem;
+          color: var(--b-secondary);
+          font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+        }
+
+        .b-contacts {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.6rem 1.5rem;
+          margin: 0;
+        }
+
+        .b-contacts a {
+          display: inline-flex;
+          align-items: center;
+          min-block-size: 2.75rem;
+          color: var(--b-petrol);
+          font-weight: 760;
+          text-decoration-thickness: 0.1em;
+          text-underline-offset: 0.28em;
+        }
+
+        .b-section {
+          padding-block-start: clamp(3.5rem, 8vw, 7rem);
+        }
+
+        .b-section-title {
+          display: grid;
+          grid-template-columns: minmax(9rem, 0.45fr) minmax(0, 1.55fr);
+          gap: 1.5rem;
+          align-items: baseline;
+          margin-block-end: 2rem;
+        }
+
+        .b-section-title h2 {
+          margin: 0;
+          font-size: clamp(1.8rem, 4vw, 3.6rem);
+          letter-spacing: -0.045em;
+        }
+
+        .b-section-title p {
+          margin: 0;
+          color: var(--b-secondary);
+        }
+
+        .b-company {
+          display: grid;
+          grid-template-columns: minmax(9rem, 0.45fr) minmax(0, 1.55fr);
+          border-block-start: 1px solid var(--b-grid);
+        }
+
+        .b-company:last-child {
+          border-block-end: 1px solid var(--b-grid);
+        }
+
+        .b-company-heading {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) auto;
+          gap: 0.75rem;
+          align-items: start;
+          padding: 1.5rem 1.5rem 1.5rem 0;
+          border-inline-end: 1px solid var(--b-grid);
+        }
+
+        .b-company-heading h3 {
+          margin: 0;
+          font-size: 1.05rem;
+          line-height: 1.35;
+        }
+
+        .b-brace {
+          color: var(--b-petrol);
+          inline-size: 0.75rem;
+          block-size: 2.1rem;
+          border-block: 0.125rem solid currentColor;
+          border-inline-end: 0.125rem solid currentColor;
+        }
+
+        .b-role-list {
+          margin: 0;
+        }
+
+        .b-role-item {
+          display: grid;
+          grid-template-columns: minmax(8.5rem, 0.42fr) minmax(0, 1.58fr);
+          gap: 1.25rem;
+          padding: 1.5rem;
+        }
+
+        .b-role-item:not(:last-child) {
+          border-block-end: 1px solid var(--b-grid);
+        }
+
+        .b-role-item .date {
+          color: var(--b-petrol);
+        }
+
+        .b-role-item h4 {
+          margin-block-end: 0.45rem;
+          font-size: 1rem;
+        }
+
+        .b-role-item p {
+          margin: 0;
+          color: var(--b-secondary);
+          line-height: 1.55;
+          text-wrap: pretty;
+        }
+
+        .b-skills {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          border-block: 0.125rem solid var(--b-ink);
+        }
+
+        .b-skill-group {
+          padding: 1.5rem;
+        }
+
+        .b-skill-group:not(:last-child) {
+          border-inline-end: 1px solid var(--b-grid);
+        }
+
+        .b-skill-group h3 {
+          margin-block-end: 1.25rem;
+          color: var(--b-petrol);
+          font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+          font-size: 0.8rem;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+        }
+
+        .b-skill-group ul {
+          display: grid;
+          gap: 0.65rem;
+          margin: 0;
+          color: var(--b-secondary);
+        }
+
+        /* C — Organization Call Stack */
+        .variant-c {
+          --c-canvas: #f7f4fa;
+          --c-surface: #ffffff;
+          --c-ink: #231a2b;
+          --c-plum: #63406e;
+          --c-teal: #12675f;
+          --c-frame: #d8cde0;
+          background:
+            radial-gradient(circle at 90% 5%, color-mix(in oklab, var(--c-teal), transparent 88%), transparent 28rem),
+            var(--c-canvas);
+          color: var(--c-ink);
+          font-family: Optima, Candara, "Segoe UI", system-ui, sans-serif;
+        }
+
+        .c-shell {
+          inline-size: min(100% - 3rem, 76rem);
+          margin-inline: auto;
+          padding-block: clamp(2rem, 5vw, 5rem);
+        }
+
+        .c-hero {
+          display: grid;
+          grid-template-columns: minmax(0, 1.18fr) minmax(15rem, 0.82fr);
+          gap: clamp(2rem, 7vw, 7rem);
+          align-items: center;
+          min-block-size: min(47rem, 82dvh);
+          padding: clamp(1.5rem, 4vw, 4rem);
+          border: 1px solid var(--c-frame);
+          border-radius: 2rem 0.45rem 2rem 0.45rem;
+          background: color-mix(in oklab, var(--c-surface), transparent 8%);
+        }
+
+        .c-hero h1 {
+          max-inline-size: 10ch;
+          margin-block-end: 0.8rem;
+          font-size: clamp(3.3rem, 7vw, 7rem);
+          font-weight: 750;
+          letter-spacing: -0.065em;
+          line-height: 0.88;
+          text-wrap: balance;
+        }
+
+        .c-role {
+          margin-block-end: 2rem;
+          color: var(--c-plum);
+          font-size: clamp(1.1rem, 2vw, 1.5rem);
+          font-weight: 750;
+        }
+
+        .c-hero .summary {
+          margin-block-end: 2rem;
+          color: color-mix(in oklab, var(--c-ink), transparent 20%);
+          font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+        }
+
+        .c-contacts {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+          margin: 0;
+        }
+
+        .c-contacts a {
+          display: inline-flex;
+          align-items: center;
+          min-block-size: 2.75rem;
+          padding-inline: 1rem;
+          border: 1px solid var(--c-frame);
+          border-radius: 999px;
+          background: var(--c-surface);
+          color: var(--c-plum);
+          font-weight: 750;
+          text-decoration: none;
+        }
+
+        .c-contacts a:hover {
+          border-color: var(--c-plum);
+        }
+
+        .c-portrait-wrap {
+          position: relative;
+          isolation: isolate;
+        }
+
+        .c-portrait-wrap::before,
+        .c-portrait-wrap::after {
+          position: absolute;
+          z-index: -1;
+          border: 1px solid var(--c-frame);
+          content: "";
+        }
+
+        .c-portrait-wrap::before {
+          inset: -1.2rem 1.2rem 1.2rem -1.2rem;
+          border-radius: 1rem;
+        }
+
+        .c-portrait-wrap::after {
+          inset: 1.2rem -1.2rem -1.2rem 1.2rem;
+          border-radius: 1rem;
+          background: color-mix(in oklab, var(--c-teal), transparent 88%);
+        }
+
+        .c-avatar {
+          inline-size: 100%;
+          border: 1px solid var(--c-ink);
+          border-radius: 0.5rem 2rem 0.5rem 2rem;
+        }
+
+        .c-section {
+          padding-block-start: clamp(4rem, 9vw, 8rem);
+        }
+
+        .c-section > header {
+          display: flex;
+          gap: 2rem;
+          align-items: baseline;
+          justify-content: space-between;
+          margin-block-end: 2rem;
+          border-block-end: 1px solid var(--c-frame);
+        }
+
+        .c-section h2 {
+          margin-block-end: 0.75rem;
+          font-size: clamp(2rem, 4vw, 4rem);
+          letter-spacing: -0.045em;
+        }
+
+        .c-section > header p {
+          margin-block-end: 0.75rem;
+          color: var(--c-teal);
+        }
+
+        .c-organizations {
+          display: grid;
+          grid-template-columns: minmax(0, 2fr) minmax(15rem, 1fr);
+          gap: 1.5rem;
+          align-items: start;
+        }
+
+        .c-organization {
+          padding: clamp(1rem, 3vw, 2rem);
+          border: 1px solid var(--c-frame);
+          border-radius: 1.25rem;
+          background: var(--c-surface);
+        }
+
+        .c-organization > header {
+          display: flex;
+          gap: 1rem;
+          align-items: baseline;
+          justify-content: space-between;
+          margin-block-end: 1.25rem;
+        }
+
+        .c-organization h3 {
+          margin: 0;
+          font-size: clamp(1.2rem, 2vw, 1.65rem);
+        }
+
+        .c-organization > header span {
+          color: var(--c-teal);
+        }
+
+        .c-frame {
+          position: relative;
+          margin-inline-start: var(--frame-offset, 0);
+          padding: 1.25rem;
+          border: 1px solid var(--c-frame);
+          border-radius: 0.7rem;
+        }
+
+        .c-frame + .c-frame {
+          margin-block-start: 0.8rem;
+        }
+
+        .c-frame::before {
+          position: absolute;
+          inset-block: 0.8rem;
+          inset-inline-start: -0.45rem;
+          inline-size: 0.18rem;
+          border-radius: 999px;
+          background: var(--c-plum);
+          content: "";
+        }
+
+        .c-frame .date {
+          display: block;
+          margin-block-end: 0.45rem;
+          color: var(--c-teal);
+        }
+
+        .c-frame h4 {
+          margin-block-end: 0.45rem;
+          font-size: 1.05rem;
+        }
+
+        .c-frame p {
+          margin: 0;
+          color: color-mix(in oklab, var(--c-ink), transparent 25%);
+          line-height: 1.55;
+          text-wrap: pretty;
+        }
+
+        .c-skill-groups {
+          display: grid;
+          gap: 0.8rem;
+        }
+
+        .c-skill-group {
+          display: grid;
+          grid-template-columns: minmax(12rem, 0.45fr) minmax(0, 1.55fr);
+          gap: 1.5rem;
+          align-items: baseline;
+          padding: 1.35rem 1.5rem;
+          border: 1px solid var(--c-frame);
+          border-radius: 0.85rem;
+          background: var(--c-surface);
+        }
+
+        .c-skill-group:nth-child(2) {
+          margin-inline: clamp(0rem, 3vw, 3rem);
+        }
+
+        .c-skill-group h3 {
+          margin: 0;
+          color: var(--c-plum);
+          font-size: 0.95rem;
+        }
+
+        .c-skill-group ul {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.35rem 1.3rem;
+          margin: 0;
+          line-height: 1.55;
+        }
+
+        .c-skill-group li {
+          white-space: nowrap;
+        }
+
+        @media (max-width: 48rem) {
+          .a-layout,
+          .b-hero,
+          .c-hero,
+          .c-organizations {
+            grid-template-columns: 1fr;
+          }
+
+          .a-layout,
+          .b-shell,
+          .c-shell {
+            inline-size: min(100% - 2rem, 42rem);
+          }
+
+          .a-profile {
+            position: static;
+            padding-inline-end: 0;
+            padding-block-end: 2.5rem;
+            border-inline-end: 0;
+            border-block-end: 1px solid var(--a-rule);
+          }
+
+          .a-avatar {
+            inline-size: min(11rem, 55vw);
+            box-shadow: 0.5rem 0.5rem 0 var(--a-rule);
+          }
+
+          .a-content {
+            padding-block-start: 0;
+          }
+
+          .a-skill-group,
+          .b-section-title,
+          .b-company,
+          .b-role-item,
+          .c-skill-group {
+            grid-template-columns: 1fr;
+          }
+
+          .b-hero {
+            align-items: start;
+          }
+
+          .b-heading-row {
+            align-items: center;
+          }
+
+          .b-hero h1 {
+            font-size: clamp(2.7rem, 13vw, 5rem);
+          }
+
+          .b-section-title {
+            gap: 0.5rem;
+          }
+
+          .b-company-heading {
+            padding-inline-end: 0;
+            border-inline-end: 0;
+            border-block-end: 1px solid var(--b-grid);
+          }
+
+          .b-role-item {
+            gap: 0.65rem;
+          }
+
+          .b-skills {
+            grid-template-columns: 1fr;
+          }
+
+          .b-skill-group:not(:last-child) {
+            border-inline-end: 0;
+            border-block-end: 1px solid var(--b-grid);
+          }
+
+          .c-hero {
+            min-block-size: 0;
+            padding: 1.25rem;
+          }
+
+          .c-copy {
+            order: 2;
+          }
+
+          .c-portrait-wrap {
+            order: 1;
+            inline-size: min(14rem, 65vw);
+            margin-inline: auto;
+          }
+
+          .c-section > header {
+            display: block;
+          }
+
+          .c-frame {
+            margin-inline-start: 0;
+          }
+
+          .c-skill-group:nth-child(2) {
+            margin-inline: 0;
+          }
+        }
+
+        @media (max-width: 30rem) {
+          .b-heading-row {
+            grid-template-columns: 1fr;
+          }
+
+          .b-avatar {
+            inline-size: 7rem;
+          }
+        }
+      }
+
+      @layer prototype {
+        .prototype-switcher {
+          position: fixed;
+          z-index: 10;
+          inset-block-end: 1rem;
+          inset-inline-start: 50%;
+          display: grid;
+          grid-template-columns: 2.75rem minmax(12rem, auto) 2.75rem;
+          align-items: center;
+          max-inline-size: calc(100% - 2rem);
+          border: 1px solid #ffffff;
+          border-radius: 999px;
+          background: #111827;
+          box-shadow: 0 0.75rem 2.5rem rgb(15 23 42 / 30%);
+          color: #ffffff;
+          translate: -50% 0;
+        }
+
+        .prototype-switcher button {
+          min-inline-size: 2.75rem;
+          min-block-size: 2.75rem;
+          border: 0;
+          border-radius: 999px;
+          background: transparent;
+          color: inherit;
+          cursor: pointer;
+          font-size: 1.1rem;
+        }
+
+        .prototype-switcher button:hover {
+          background: rgb(255 255 255 / 14%);
+        }
+
+        .prototype-label {
+          overflow: hidden;
+          margin: 0;
+          padding-inline: 0.75rem;
+          font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+          font-size: 0.75rem;
+          font-weight: 700;
+          letter-spacing: 0.03em;
+          text-align: center;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        @media (pointer: coarse) {
+          .prototype-switcher {
+            grid-template-columns: 3rem minmax(11rem, auto) 3rem;
+          }
+
+          .prototype-switcher button {
+            min-inline-size: 3rem;
+            min-block-size: 3rem;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          html {
+            scroll-behavior: auto;
+          }
+        }
+
+        @media (forced-colors: active) {
+          .prototype-switcher,
+          .a-avatar,
+          .b-avatar,
+          .c-avatar,
+          .c-hero,
+          .c-organization,
+          .c-frame,
+          .c-skill-group {
+            border-color: CanvasText;
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#prototype-content">Skip to profile content</a>
+
+    <main id="prototype-content">
+      <article class="variant variant-a" data-variant="A" aria-labelledby="a-name">
+        <div class="a-layout">
+          <header class="a-profile">
+            <p class="eyebrow">Professional Profile</p>
+            <img class="a-avatar" src="../../public/images/avatar.webp" alt="" width="512" height="512" fetchpriority="high">
+            <h1 id="a-name">Nuttapol Phomthon</h1>
+            <p class="a-role">Software Engineer</p>
+            <p class="summary">I’m a software engineer focused on building web platforms and developer tooling that improve software delivery and developer experience. My experience spans backend services, web technologies, APIs, and internal platforms in financial services.</p>
+            <nav class="a-contacts" aria-label="Contact links">
+              <ul class="contact-list">
+                <li><a href="mailto:hello@sevipsagis.dev"><span>Email</span><span aria-hidden="true">↗</span></a></li>
+                <li><a href="https://github.com/Sevipsagis"><span>GitHub</span><span aria-hidden="true">↗</span></a></li>
+                <li><a href="https://www.linkedin.com/in/npbenz/"><span>LinkedIn</span><span aria-hidden="true">↗</span></a></li>
+              </ul>
+            </nav>
+          </header>
+
+          <div class="a-content">
+            <section class="a-section" aria-labelledby="a-experience">
+              <h2 id="a-experience">Experience</h2>
+              <section class="a-company" aria-labelledby="a-techx">
+                <h3 id="a-techx">SCB TechX</h3>
+                <ol class="a-role-list role-list">
+                  <li class="a-role-item">
+                    <p class="date"><time datetime="2025-07">2025-07</time> — Present</p>
+                    <h4>Software Engineer</h4>
+                    <p>Build and maintain software services with Java, Spring Boot, and related web technologies.</p>
+                  </li>
+                  <li class="a-role-item">
+                    <p class="date">2022-01 — 2025-06</p>
+                    <h4>Platform Service Engineer</h4>
+                    <p>Designed and implemented internal platforms that improved software delivery workflows and developer experience.</p>
+                  </li>
+                  <li class="a-role-item">
+                    <p class="date">2021-07 — 2021-12</p>
+                    <h4>Associate Platform Service Engineer</h4>
+                    <p>Built platform solutions that supported the software development lifecycle for internal developers.</p>
+                  </li>
+                </ol>
+              </section>
+              <section class="a-company" aria-labelledby="a-scb">
+                <h3 id="a-scb">SCB – Siam Commercial Bank</h3>
+                <ol class="a-role-list role-list">
+                  <li class="a-role-item">
+                    <p class="date">2019-07 — 2021-06</p>
+                    <h4>Software Engineer</h4>
+                    <p>Developed SCB Open API capabilities and the developer portal used by partners to integrate applications with SCB services.</p>
+                  </li>
+                </ol>
+              </section>
+            </section>
+
+            <section class="a-section" aria-labelledby="a-skills">
+              <h2 id="a-skills">Skills</h2>
+              <div class="a-skill-groups">
+                <section class="a-skill-group">
+                  <h3>Languages</h3>
+                  <ul class="skill-list">
+                    <li>JavaScript</li><li>TypeScript</li><li>Python</li><li>Go</li><li>Java</li>
+                  </ul>
+                </section>
+                <section class="a-skill-group">
+                  <h3>Frameworks &amp; Libraries</h3>
+                  <ul class="skill-list">
+                    <li>React</li><li>Next.js</li><li>Express.js</li><li>NestJS</li><li>Spring Boot</li><li>Apollo GraphQL</li>
+                  </ul>
+                </section>
+                <section class="a-skill-group">
+                  <h3>Platforms &amp; Tools</h3>
+                  <ul class="skill-list">
+                    <li>Git</li><li>GitHub Actions</li><li>Docker</li><li>Supabase</li>
+                  </ul>
+                </section>
+              </div>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <article class="variant variant-b" data-variant="B" aria-labelledby="b-name" hidden>
+        <div class="b-shell">
+          <header class="b-hero">
+            <div class="b-heading-row">
+              <img class="b-avatar" src="../../public/images/avatar.webp" alt="" width="512" height="512">
+              <div>
+                <p class="eyebrow">Professional Profile</p>
+                <h1 id="b-name">Nuttapol Phomthon</h1>
+                <p class="b-role">Software Engineer</p>
+              </div>
+            </div>
+            <div class="b-intro">
+              <p class="summary">I’m a software engineer focused on building web platforms and developer tooling that improve software delivery and developer experience. My experience spans backend services, web technologies, APIs, and internal platforms in financial services.</p>
+              <nav aria-label="Contact links">
+                <ul class="b-contacts contact-list">
+                  <li><a href="mailto:hello@sevipsagis.dev">Email</a></li>
+                  <li><a href="https://github.com/Sevipsagis">GitHub</a></li>
+                  <li><a href="https://www.linkedin.com/in/npbenz/">LinkedIn</a></li>
+                </ul>
+              </nav>
+            </div>
+          </header>
+
+          <section class="b-section" aria-labelledby="b-experience">
+            <header class="b-section-title">
+              <p class="utility">Selected history</p>
+              <h2 id="b-experience">Experience</h2>
+            </header>
+
+            <section class="b-company" aria-labelledby="b-techx">
+              <header class="b-company-heading">
+                <h3 id="b-techx">SCB TechX</h3>
+                <span class="b-brace" aria-hidden="true"></span>
+              </header>
+              <ol class="b-role-list role-list">
+                <li class="b-role-item">
+                  <p class="date"><time datetime="2025-07">2025-07</time> — Present</p>
+                  <div><h4>Software Engineer</h4><p>Build and maintain software services with Java, Spring Boot, and related web technologies.</p></div>
+                </li>
+                <li class="b-role-item">
+                  <p class="date">2022-01 — 2025-06</p>
+                  <div><h4>Platform Service Engineer</h4><p>Designed and implemented internal platforms that improved software delivery workflows and developer experience.</p></div>
+                </li>
+                <li class="b-role-item">
+                  <p class="date">2021-07 — 2021-12</p>
+                  <div><h4>Associate Platform Service Engineer</h4><p>Built platform solutions that supported the software development lifecycle for internal developers.</p></div>
+                </li>
+              </ol>
+            </section>
+
+            <section class="b-company" aria-labelledby="b-scb">
+              <header class="b-company-heading">
+                <h3 id="b-scb">SCB – Siam Commercial Bank</h3>
+                <span class="b-brace" aria-hidden="true"></span>
+              </header>
+              <ol class="b-role-list role-list">
+                <li class="b-role-item">
+                  <p class="date">2019-07 — 2021-06</p>
+                  <div><h4>Software Engineer</h4><p>Developed SCB Open API capabilities and the developer portal used by partners to integrate applications with SCB services.</p></div>
+                </li>
+              </ol>
+            </section>
+          </section>
+
+          <section class="b-section" aria-labelledby="b-skills">
+            <header class="b-section-title">
+              <p class="utility">Capability scope</p>
+              <h2 id="b-skills">Skills</h2>
+            </header>
+            <div class="b-skills">
+              <section class="b-skill-group">
+                <h3>Languages</h3>
+                <ul class="skill-list"><li>JavaScript</li><li>TypeScript</li><li>Python</li><li>Go</li><li>Java</li></ul>
+              </section>
+              <section class="b-skill-group">
+                <h3>Frameworks &amp; Libraries</h3>
+                <ul class="skill-list"><li>React</li><li>Next.js</li><li>Express.js</li><li>NestJS</li><li>Spring Boot</li><li>Apollo GraphQL</li></ul>
+              </section>
+              <section class="b-skill-group">
+                <h3>Platforms &amp; Tools</h3>
+                <ul class="skill-list"><li>Git</li><li>GitHub Actions</li><li>Docker</li><li>Supabase</li></ul>
+              </section>
+            </div>
+          </section>
+        </div>
+      </article>
+
+      <article class="variant variant-c" data-variant="C" aria-labelledby="c-name" hidden>
+        <div class="c-shell">
+          <header class="c-hero">
+            <div class="c-copy">
+              <p class="eyebrow">Professional Profile</p>
+              <h1 id="c-name">Nuttapol Phomthon</h1>
+              <p class="c-role">Software Engineer</p>
+              <p class="summary">I’m a software engineer focused on building web platforms and developer tooling that improve software delivery and developer experience. My experience spans backend services, web technologies, APIs, and internal platforms in financial services.</p>
+              <nav aria-label="Contact links">
+                <ul class="c-contacts contact-list">
+                  <li><a href="mailto:hello@sevipsagis.dev">Email</a></li>
+                  <li><a href="https://github.com/Sevipsagis">GitHub</a></li>
+                  <li><a href="https://www.linkedin.com/in/npbenz/">LinkedIn</a></li>
+                </ul>
+              </nav>
+            </div>
+            <div class="c-portrait-wrap">
+              <img class="c-avatar" src="../../public/images/avatar.webp" alt="" width="512" height="512">
+            </div>
+          </header>
+
+          <section class="c-section" aria-labelledby="c-experience">
+            <header>
+              <h2 id="c-experience">Experience</h2>
+              <p class="utility">Organization → role</p>
+            </header>
+            <div class="c-organizations">
+              <section class="c-organization" aria-labelledby="c-techx">
+                <header><h3 id="c-techx">SCB TechX</h3><span class="utility">3 roles</span></header>
+                <div class="c-frame" style="--frame-offset: 0;">
+                  <p class="date"><time datetime="2025-07">2025-07</time> — Present</p>
+                  <h4>Software Engineer</h4>
+                  <p>Build and maintain software services with Java, Spring Boot, and related web technologies.</p>
+                </div>
+                <div class="c-frame" style="--frame-offset: 1rem;">
+                  <p class="date">2022-01 — 2025-06</p>
+                  <h4>Platform Service Engineer</h4>
+                  <p>Designed and implemented internal platforms that improved software delivery workflows and developer experience.</p>
+                </div>
+                <div class="c-frame" style="--frame-offset: 2rem;">
+                  <p class="date">2021-07 — 2021-12</p>
+                  <h4>Associate Platform Service Engineer</h4>
+                  <p>Built platform solutions that supported the software development lifecycle for internal developers.</p>
+                </div>
+              </section>
+              <section class="c-organization" aria-labelledby="c-scb">
+                <header><h3 id="c-scb">SCB – Siam Commercial Bank</h3><span class="utility">1 role</span></header>
+                <div class="c-frame" style="--frame-offset: 0;">
+                  <p class="date">2019-07 — 2021-06</p>
+                  <h4>Software Engineer</h4>
+                  <p>Developed SCB Open API capabilities and the developer portal used by partners to integrate applications with SCB services.</p>
+                </div>
+              </section>
+            </div>
+          </section>
+
+          <section class="c-section" aria-labelledby="c-skills">
+            <header>
+              <h2 id="c-skills">Skills</h2>
+              <p class="utility">Current toolkit</p>
+            </header>
+            <div class="c-skill-groups">
+              <section class="c-skill-group">
+                <h3>Languages</h3>
+                <ul class="skill-list"><li>JavaScript</li><li>TypeScript</li><li>Python</li><li>Go</li><li>Java</li></ul>
+              </section>
+              <section class="c-skill-group">
+                <h3>Frameworks &amp; Libraries</h3>
+                <ul class="skill-list"><li>React</li><li>Next.js</li><li>Express.js</li><li>NestJS</li><li>Spring Boot</li><li>Apollo GraphQL</li></ul>
+              </section>
+              <section class="c-skill-group">
+                <h3>Platforms &amp; Tools</h3>
+                <ul class="skill-list"><li>Git</li><li>GitHub Actions</li><li>Docker</li><li>Supabase</li></ul>
+              </section>
+            </div>
+          </section>
+        </div>
+      </article>
+    </main>
+
+    <aside class="prototype-switcher" aria-label="Prototype variants">
+      <button type="button" data-direction="-1" aria-label="Previous variant">←</button>
+      <p class="prototype-label" aria-live="polite">A — Career Commit Graph</p>
+      <button type="button" data-direction="1" aria-label="Next variant">→</button>
+    </aside>
+
+    <script>
+      const variants = [
+        { key: "A", name: "Career Commit Graph" },
+        { key: "B", name: "Scoped Experience Matrix" },
+        { key: "C", name: "Organization Call Stack" }
+      ];
+      const panels = new Map(
+        Array.from(document.querySelectorAll("[data-variant]")).map(function (panel) {
+          return [panel.dataset.variant, panel];
+        })
+      );
+      const label = document.querySelector(".prototype-label");
+      const requested = new URL(window.location.href).searchParams.get("variant");
+      let currentIndex = Math.max(0, variants.findIndex(function (variant) {
+        return variant.key === requested;
+      }));
+
+      function showVariant(index) {
+        currentIndex = (index + variants.length) % variants.length;
+        const current = variants[currentIndex];
+
+        panels.forEach(function (panel, key) {
+          panel.hidden = key !== current.key;
+        });
+
+        label.textContent = current.key + " — " + current.name;
+        document.title = current.name + " prototype — Nuttapol Phomthon";
+
+        const url = new URL(window.location.href);
+        url.searchParams.set("variant", current.key);
+        window.history.replaceState(null, "", url);
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
+
+      document.querySelectorAll("[data-direction]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          showVariant(currentIndex + Number(button.dataset.direction));
+        });
+      });
+
+      document.addEventListener("keydown", function (event) {
+        const target = event.target;
+        const isEditing = target.matches("input, textarea, [contenteditable]");
+
+        if (isEditing || (event.key !== "ArrowLeft" && event.key !== "ArrowRight")) {
+          return;
+        }
+
+        event.preventDefault();
+        showVariant(currentIndex + (event.key === "ArrowLeft" ? -1 : 1));
+      });
+
+      showVariant(currentIndex);
+    </script>
+  </body>
+</html>
