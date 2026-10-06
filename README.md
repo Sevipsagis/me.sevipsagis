@@ -1,6 +1,6 @@
 # me.sevipsagis
 
-Personal profile of Nuttapol Phomthon, styled after the menu screens of the Persona series
+Personal profile of Nuttapol Phomthon, styled after the menu screens of Persona 3 Reload
 (a fan tribute built from original CSS/SVG; no game assets).
 
 Plain static site, no build step. Deploy the repository root to Cloudflare Pages
@@ -14,5 +14,5 @@ python3 -m http.server 4173
 ```
 
 - `index.html` — all content, readable without JavaScript.
-- `assets/js/site.js` — menu navigation, screen wipes, ransom-note headings.
+- `assets/js/site.js` — menu navigation and ripple screen transitions.
 - `assets/fonts/` — Anton, Archivo Black, DM Serif Display (SIL Open Font License 1.1).

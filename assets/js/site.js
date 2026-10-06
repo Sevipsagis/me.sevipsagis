@@ -13,38 +13,23 @@
   var lastMenuLink = menuLinks[0];
   var busy = false;
 
-  // Ransom-note headings: the readable text stays for assistive tech,
-  // the cut-out letters are decoration.
-  function ransom(el) {
-    var text = el.textContent.trim();
-    var styled = document.createElement("span");
-    styled.className = "ransom";
-    styled.setAttribute("aria-hidden", "true");
-    var n = 0;
-    text.split(/\s+/).forEach(function (word) {
-      var w = document.createElement("span");
-      w.className = "ransom-word";
-      Array.prototype.forEach.call(word, function (ch) {
-        var seed = (ch.charCodeAt(0) * 31 + n * 17) % 97;
-        var letter = document.createElement("span");
-        letter.className = "ransom-letter ransom-letter--" + ((seed % 5) + 1);
-        letter.style.setProperty("--r", ((seed % 13) - 6) + "deg");
-        letter.style.setProperty("--y", ((seed % 5) - 2) * 0.03 + "em");
-        letter.textContent = ch;
-        w.appendChild(letter);
-        n += 1;
-      });
-      styled.appendChild(w);
-    });
-    var plain = document.createElement("span");
-    plain.className = "visually-hidden";
-    plain.textContent = text;
-    el.textContent = "";
-    el.appendChild(plain);
-    el.appendChild(styled);
-  }
+  // Where the last click or key press happened; the ripple wipe spreads from there.
+  var origin = null;
 
-  document.querySelectorAll(".ransom-target").forEach(ransom);
+  document.addEventListener("pointerdown", function (event) {
+    origin = { x: event.clientX, y: event.clientY };
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key !== "Enter" && event.key !== "Escape") return;
+    var el = event.key === "Enter" ? document.activeElement : null;
+    if (el && el.getBoundingClientRect) {
+      var r = el.getBoundingClientRect();
+      origin = { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+    } else {
+      origin = null;
+    }
+  }, true);
 
   function select(link) {
     menuLinks.forEach(function (a) {
@@ -105,6 +90,9 @@
       return;
     }
     busy = true;
+    wipe.style.setProperty("--x", origin ? origin.x + "px" : "50%");
+    wipe.style.setProperty("--y", origin ? origin.y + "px" : "50%");
+    origin = null;
     wipe.classList.remove("is-out");
     wipe.classList.add("is-in");
     window.setTimeout(function () {
@@ -114,8 +102,8 @@
       window.setTimeout(function () {
         wipe.classList.remove("is-out");
         busy = false;
-      }, 420);
-    }, 320);
+      }, 560);
+    }, 480);
   }
 
   window.addEventListener("hashchange", function () {
