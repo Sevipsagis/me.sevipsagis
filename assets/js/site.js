@@ -102,8 +102,8 @@
       window.setTimeout(function () {
         wipe.classList.remove("is-out");
         busy = false;
-      }, 560);
-    }, 480);
+      }, 460);
+    }, 400);
   }
 
   window.addEventListener("hashchange", function () {

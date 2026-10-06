@@ -109,7 +109,7 @@ a {
   translate: 0;
 }
 
-/* ---------- Backdrop: moon, caustics, waves, bubbles ---------- */
+/* ---------- Backdrop: deep-water gradient and one quiet wave ---------- */
 
 .backdrop {
   position: fixed;
@@ -120,85 +120,18 @@ a {
   pointer-events: none;
 }
 
-.backdrop-moon {
-  position: absolute;
-  inset-block-start: -14vmin;
-  inset-inline-end: -10vmin;
-  inline-size: 58vmin;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle at 38% 38%, #f4fdff 0 30%, #bfefff 52%, rgb(94 230 255 / 0%) 72%);
-  opacity: 0.22;
-  filter: blur(2px);
-}
-
-.backdrop-caustics {
-  position: absolute;
-  inset: -20%;
-  background:
-    radial-gradient(ellipse 18% 9% at 20% 30%, rgb(94 230 255 / 16%), transparent 70%),
-    radial-gradient(ellipse 14% 7% at 70% 20%, rgb(94 230 255 / 12%), transparent 70%),
-    radial-gradient(ellipse 22% 10% at 55% 65%, rgb(94 230 255 / 10%), transparent 70%),
-    radial-gradient(ellipse 12% 6% at 15% 80%, rgb(255 255 255 / 8%), transparent 70%),
-    repeating-linear-gradient(115deg, transparent 0 46px, rgb(94 230 255 / 5%) 46px 48px);
-  animation: drift 18s ease-in-out infinite alternate;
-}
-
-@keyframes drift {
-  to {
-    translate: 4% -3%;
-    rotate: 2deg;
-  }
-}
-
 .backdrop-waves {
   position: absolute;
   inset-block-end: 0;
   inset-inline-start: -5%;
   inline-size: 110%;
-  block-size: 22vh;
+  block-size: 18vh;
 }
 
-.wave--back {
-  fill: rgb(94 230 255 / 14%);
-  animation: sway 9s ease-in-out infinite alternate;
+.wave {
+  fill: rgb(94 230 255 / 7%);
 }
 
-.wave--front {
-  fill: rgb(6 18 46 / 70%);
-  animation: sway 7s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes sway {
-  from { translate: -3% 0; }
-  to { translate: 3% 4px; }
-}
-
-.backdrop-bubbles i {
-  position: absolute;
-  inset-block-end: -2rem;
-  inline-size: var(--s, 0.6rem);
-  aspect-ratio: 1;
-  border: 1px solid rgb(233 251 255 / 60%);
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgb(255 255 255 / 55%), transparent 45%);
-  animation: rise var(--t, 14s) linear infinite;
-  animation-delay: var(--d, 0s);
-}
-
-.backdrop-bubbles i:nth-child(1) { inset-inline-start: 8%; --s: 0.5rem; --t: 13s; }
-.backdrop-bubbles i:nth-child(2) { inset-inline-start: 22%; --s: 0.9rem; --t: 17s; --d: -6s; }
-.backdrop-bubbles i:nth-child(3) { inset-inline-start: 47%; --s: 0.4rem; --t: 11s; --d: -3s; }
-.backdrop-bubbles i:nth-child(4) { inset-inline-start: 63%; --s: 0.7rem; --t: 15s; --d: -9s; }
-.backdrop-bubbles i:nth-child(5) { inset-inline-start: 81%; --s: 1.1rem; --t: 19s; --d: -2s; }
-.backdrop-bubbles i:nth-child(6) { inset-inline-start: 92%; --s: 0.45rem; --t: 12s; --d: -7s; }
-
-@keyframes rise {
-  0% { translate: 0 0; opacity: 0; }
-  10% { opacity: 1; }
-  50% { translate: 1.2rem -55vh; }
-  100% { translate: -0.8rem -115vh; opacity: 0; }
-}
 
 /* ---------- Hero / main menu ---------- */
 
@@ -232,7 +165,6 @@ a {
   font-size: clamp(0.8rem, 1.5vw, 1rem);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  transform: skewX(var(--lean));
 }
 
 .nameplate h1 {
@@ -244,7 +176,7 @@ a {
   text-transform: uppercase;
   transform: skewX(var(--lean));
   transform-origin: left bottom;
-  text-shadow: 0.05em 0.05em 0 var(--blue), 0 0 0.6em rgb(94 230 255 / 35%);
+  text-shadow: 0.04em 0.04em 0 var(--blue);
 }
 
 .portrait {
@@ -253,29 +185,6 @@ a {
   align-self: center;
   justify-self: center;
   inline-size: min(100%, 28rem);
-}
-
-.portrait-ripple {
-  position: absolute;
-  inset: -10%;
-}
-
-.portrait-ripple i {
-  position: absolute;
-  inset: 0;
-  border: 2px solid rgb(94 230 255 / 55%);
-  border-radius: 50%;
-  scale: 0.4;
-  opacity: 0;
-  animation: ripple 6s var(--flow) infinite;
-}
-
-.portrait-ripple i:nth-child(2) { animation-delay: 2s; }
-.portrait-ripple i:nth-child(3) { animation-delay: 4s; }
-
-@keyframes ripple {
-  0% { scale: 0.4; opacity: 0.9; }
-  100% { scale: 1.15; opacity: 0; }
 }
 
 .portrait-frame {
@@ -337,7 +246,7 @@ a {
   z-index: 1;
   display: inline-block;
   transform: skewX(var(--lean));
-  text-shadow: 0.05em 0.05em 0 var(--blue);
+  text-shadow: 0.04em 0.04em 0 var(--blue);
 }
 
 /* Ribbon behind each item; the selected one floods with light. */
@@ -345,7 +254,7 @@ a {
   position: absolute;
   inset: 12% 0 10% 0;
   z-index: 0;
-  background: linear-gradient(90deg, rgb(29 78 216 / 0%), rgb(29 78 216 / 55%));
+  background: linear-gradient(90deg, rgb(29 78 216 / 0%), rgb(29 78 216 / 30%));
   transform: skewX(var(--lean));
   transition: background-color 200ms ease, inset 260ms var(--flow);
   content: "";
@@ -353,16 +262,14 @@ a {
 
 .menu a::after {
   position: absolute;
-  inset-block-start: 50%;
-  inset-inline-start: 0;
+  inset-block: 18% 16%;
+  inset-inline-start: 0.35em;
   z-index: 1;
-  inline-size: 0.42em;
-  aspect-ratio: 1;
-  border: 0.07em solid var(--cyan);
-  border-radius: 50%;
-  translate: 0 -50%;
-  scale: 0;
-  transition: scale 260ms var(--flow);
+  inline-size: 0.12em;
+  background: var(--cyan);
+  transform: skewX(var(--lean));
+  scale: 1 0;
+  transition: scale 220ms var(--flow);
   content: "";
 }
 
@@ -370,40 +277,33 @@ a {
 .menu a:focus-visible,
 .menu a.is-active {
   color: var(--abyss);
-  translate: -0.35em 0;
+  translate: -0.2em 0;
   outline: none;
 }
 
 .menu a:hover > span,
 .menu a:focus-visible > span,
 .menu a.is-active > span {
-  text-shadow: 0.04em 0.04em 0 var(--cyan);
+  text-shadow: none;
 }
 
 .menu a:hover::before,
 .menu a:focus-visible::before,
 .menu a.is-active::before {
   inset: 6% -0.4em 4% 0.6em;
-  background: linear-gradient(90deg, var(--cyan), var(--foam) 45%, var(--white));
-  box-shadow: 0 0 1.5em rgb(94 230 255 / 55%);
+  background: linear-gradient(90deg, var(--cyan), var(--white) 40%);
 }
 
 .menu a:hover::after,
 .menu a:focus-visible::after,
 .menu a.is-active::after {
-  scale: 1;
-  animation: ping 1.6s var(--flow) infinite;
+  scale: 1 1;
 }
 
 /* Keyboard focus keeps a visible outline beyond the colour change. */
 .menu a:focus-visible::before {
   outline: 0.06em solid var(--white);
   outline-offset: 0.1em;
-}
-
-@keyframes ping {
-  0% { box-shadow: 0 0 0 0 rgb(94 230 255 / 70%); }
-  100% { box-shadow: 0 0 0 0.3em rgb(94 230 255 / 0%); }
 }
 
 .menu-desc {
@@ -430,8 +330,7 @@ a {
 @keyframes surface {
   from {
     opacity: 0;
-    translate: 0 0.6rem;
-    filter: blur(3px);
+    translate: 0 0.5rem;
   }
 }
 
@@ -492,7 +391,6 @@ main {
   font-size: 0.85rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  transform: skewX(var(--lean));
 }
 
 .panel-head h2,
@@ -504,7 +402,7 @@ main {
   text-transform: uppercase;
   transform: skewX(var(--lean));
   transform-origin: left bottom;
-  text-shadow: 0.05em 0.05em 0 var(--blue), 0 0 0.5em rgb(94 230 255 / 30%);
+  text-shadow: 0.04em 0.04em 0 var(--blue);
 }
 
 .panel-head h2:focus {
@@ -567,7 +465,7 @@ main {
   text-transform: uppercase;
 }
 
-/* Experience: a current running through ripple markers */
+/* Experience: a timeline with ring markers */
 
 .company + .company {
   margin-block-start: 3rem;
@@ -580,8 +478,6 @@ main {
   font-size: clamp(1.6rem, 4vw, 2.6rem);
   font-weight: 400;
   text-transform: uppercase;
-  transform: skewX(var(--lean));
-  transform-origin: left bottom;
 }
 
 .company h3::after {
@@ -618,7 +514,7 @@ main {
   border: 1px solid var(--glass-line);
   background: var(--glass);
   backdrop-filter: blur(8px);
-  transition: translate 300ms var(--flow), border-color 200ms ease;
+  transition: border-color 200ms ease;
 }
 
 .role::before {
@@ -635,7 +531,6 @@ main {
 }
 
 .role:hover {
-  translate: 0.4rem 0;
   border-color: var(--cyan);
 }
 
@@ -697,7 +592,6 @@ main {
   font-family: var(--display);
   font-size: 1.15rem;
   text-transform: uppercase;
-  transform: skewX(var(--lean));
   transition: background-color 200ms ease, color 200ms ease;
 }
 
@@ -757,12 +651,11 @@ main {
   color: var(--white);
   text-decoration: none;
   overflow-wrap: anywhere;
-  transition: translate 260ms var(--flow), box-shadow 200ms ease;
+  transition: border-color 200ms ease;
 }
 
 .chat-msg--link .chat-bubble:hover {
-  translate: -0.4rem 0;
-  box-shadow: 0 0 1.25rem rgb(94 230 255 / 45%);
+  border-color: var(--white);
 }
 
 .chat-channel {
@@ -802,9 +695,9 @@ main {
   clip-path: circle(0 at var(--x) var(--y));
 }
 
-.wipe span:nth-child(1) { background: var(--foam); }
-.wipe span:nth-child(2) { background: var(--cyan); }
-.wipe span:nth-child(3) { background: var(--deep); }
+.wipe span:nth-child(1) { background: var(--blue); }
+.wipe span:nth-child(2) { background: var(--deep); }
+.wipe span:nth-child(3) { background: var(--abyss); }
 
 .wipe.is-in,
 .wipe.is-out {
@@ -812,19 +705,19 @@ main {
 }
 
 .wipe.is-in span {
-  animation: flood 360ms cubic-bezier(0.6, 0, 0.4, 1) forwards;
+  animation: flood 300ms cubic-bezier(0.6, 0, 0.4, 1) forwards;
 }
 
-.wipe.is-in span:nth-child(2) { animation-delay: 50ms; }
-.wipe.is-in span:nth-child(3) { animation-delay: 100ms; }
+.wipe.is-in span:nth-child(2) { animation-delay: 40ms; }
+.wipe.is-in span:nth-child(3) { animation-delay: 80ms; }
 
 .wipe.is-out span {
   clip-path: circle(150% at var(--x) var(--y));
-  animation: drain 420ms cubic-bezier(0.6, 0, 0.4, 1) forwards;
+  animation: drain 340ms cubic-bezier(0.6, 0, 0.4, 1) forwards;
 }
 
-.wipe.is-out span:nth-child(1) { animation-delay: 100ms; }
-.wipe.is-out span:nth-child(2) { animation-delay: 50ms; }
+.wipe.is-out span:nth-child(1) { animation-delay: 80ms; }
+.wipe.is-out span:nth-child(2) { animation-delay: 40ms; }
 
 @keyframes flood {
   to { clip-path: circle(150% at var(--x) var(--y)); }
@@ -857,7 +750,6 @@ main {
   font-size: 1.4rem;
   text-decoration: none;
   text-transform: uppercase;
-  transform: skewX(var(--lean));
   transition: background-color 200ms ease;
 }
 
@@ -907,7 +799,6 @@ main {
   font-size: 1.2rem;
   text-decoration: none;
   text-transform: uppercase;
-  transform: skewX(var(--lean));
 }
 
 .topbar-back::before {
@@ -956,8 +847,7 @@ main {
 @keyframes float-in {
   from {
     opacity: 0;
-    translate: 2.5rem 0;
-    filter: blur(4px);
+    translate: 1.25rem 0;
   }
 }
 
@@ -1012,9 +902,7 @@ html:not(.js) .menu-desc {
     transition: none !important;
   }
 
-  .wipe,
-  .backdrop-bubbles,
-  .portrait-ripple {
+  .wipe {
     display: none;
   }
 }
