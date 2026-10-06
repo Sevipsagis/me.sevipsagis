@@ -1,0 +1,922 @@
+/*
+  Persona 3 Reload–inspired profile. Original CSS/SVG only: no game assets, logos or fonts.
+  Fonts: Anton, Archivo Black, DM Serif Display (SIL Open Font License 1.1).
+*/
+
+@font-face {
+  font-family: "Anton";
+  src: url("/assets/fonts/anton.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Archivo Black";
+  src: url("/assets/fonts/archivo-black.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Serif Display";
+  src: url("/assets/fonts/dm-serif-display.woff2") format("woff2");
+  font-display: swap;
+}
+
+:root {
+  --abyss: #06122e;
+  --deep: #0b2a6b;
+  --blue: #1d4ed8;
+  --cyan: #5ee6ff;
+  --foam: #e9fbff;
+  --white: #ffffff;
+  --glass: rgb(11 42 107 / 72%);
+  --glass-line: rgb(94 230 255 / 45%);
+  --display: "Anton", Impact, "Arial Narrow Bold", sans-serif;
+  --heavy: "Archivo Black", "Arial Black", system-ui, sans-serif;
+  --serif: "DM Serif Display", Georgia, serif;
+  --body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --lean: -10deg;
+  --flow: cubic-bezier(0.22, 1, 0.36, 1);
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-inline-size: 20rem;
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--abyss);
+  color: var(--white);
+  font-family: var(--body);
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ol,
+ul,
+dl,
+dd {
+  margin: 0;
+}
+
+ol,
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 0.2rem solid var(--cyan);
+  outline-offset: 0.3rem;
+}
+
+.skip-link {
+  position: fixed;
+  inset-block-start: 0.75rem;
+  inset-inline-start: 0.75rem;
+  z-index: 100;
+  translate: 0 -300%;
+  padding: 0.75rem 1rem;
+  background: var(--foam);
+  color: var(--abyss);
+  font-family: var(--heavy);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  translate: 0;
+}
+
+/* ---------- Backdrop: deep-water gradient and one quiet wave ---------- */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--abyss) 0%, var(--deep) 55%, #0f3b8f 100%);
+  pointer-events: none;
+}
+
+.backdrop-waves {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: -5%;
+  inline-size: 110%;
+  block-size: 18vh;
+}
+
+.wave {
+  fill: rgb(94 230 255 / 7%);
+}
+
+
+/* ---------- Hero / main menu ---------- */
+
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  grid-template-areas:
+    "name name"
+    "portrait menu"
+    "portrait desc"
+    "controls controls";
+  gap: 1.5rem clamp(1rem, 4vw, 4rem);
+  inline-size: min(100% - 2rem, 80rem);
+  min-block-size: 100svh;
+  margin-inline: auto;
+  padding-block: clamp(1.5rem, 4vw, 3rem) 1.5rem;
+}
+
+.nameplate {
+  grid-area: name;
+}
+
+.nameplate-role {
+  display: inline-block;
+  margin-block-end: 0.5rem;
+  padding: 0.2rem 1.1rem;
+  background: var(--cyan);
+  color: var(--abyss);
+  font-family: var(--heavy);
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.nameplate h1 {
+  font-family: var(--display);
+  font-size: clamp(2.6rem, 8vw, 6.5rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  transform: skewX(var(--lean));
+  transform-origin: left bottom;
+  text-shadow: 0.04em 0.04em 0 var(--blue);
+}
+
+.portrait {
+  position: relative;
+  grid-area: portrait;
+  align-self: center;
+  justify-self: center;
+  inline-size: min(100%, 28rem);
+}
+
+.portrait-frame {
+  position: relative;
+  padding: 0.5rem;
+  background: linear-gradient(135deg, var(--cyan), var(--blue));
+  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+}
+
+.portrait-frame img {
+  inline-size: 100%;
+  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+  background: #cfefff;
+  filter: grayscale(1) contrast(1.4) brightness(1.05);
+  mix-blend-mode: multiply;
+}
+
+.portrait-frame::after {
+  position: absolute;
+  inset: 0.5rem;
+  background: linear-gradient(200deg, rgb(94 230 255 / 0%) 40%, rgb(29 78 216 / 55%));
+  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+  content: "";
+}
+
+.menu {
+  grid-area: menu;
+  align-self: end;
+  justify-self: end;
+  inline-size: 100%;
+}
+
+.menu ol {
+  display: grid;
+  justify-items: end;
+  gap: 0.35rem;
+}
+
+.menu li {
+  margin-inline-end: calc((3 - var(--i)) * clamp(0.4rem, 2vw, 1.75rem));
+}
+
+.menu a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.05em 0.5em 0.05em 0.9em;
+  color: var(--white);
+  font-family: var(--display);
+  font-size: clamp(2.4rem, 6.2vw, 5.2rem);
+  line-height: 1.05;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 160ms ease, translate 260ms var(--flow);
+}
+
+.menu a > span {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  transform: skewX(var(--lean));
+  text-shadow: 0.04em 0.04em 0 var(--blue);
+}
+
+/* Ribbon behind each item; the selected one floods with light. */
+.menu a::before {
+  position: absolute;
+  inset: 12% 0 10% 0;
+  z-index: 0;
+  background: linear-gradient(90deg, rgb(29 78 216 / 0%), rgb(29 78 216 / 30%));
+  transform: skewX(var(--lean));
+  transition: background-color 200ms ease, inset 260ms var(--flow);
+  content: "";
+}
+
+.menu a::after {
+  position: absolute;
+  inset-block: 18% 16%;
+  inset-inline-start: 0.35em;
+  z-index: 1;
+  inline-size: 0.12em;
+  background: var(--cyan);
+  transform: skewX(var(--lean));
+  scale: 1 0;
+  transition: scale 220ms var(--flow);
+  content: "";
+}
+
+.menu a:hover,
+.menu a:focus-visible,
+.menu a.is-active {
+  color: var(--abyss);
+  translate: -0.2em 0;
+  outline: none;
+}
+
+.menu a:hover > span,
+.menu a:focus-visible > span,
+.menu a.is-active > span {
+  text-shadow: none;
+}
+
+.menu a:hover::before,
+.menu a:focus-visible::before,
+.menu a.is-active::before {
+  inset: 6% -0.4em 4% 0.6em;
+  background: linear-gradient(90deg, var(--cyan), var(--white) 40%);
+}
+
+.menu a:hover::after,
+.menu a:focus-visible::after,
+.menu a.is-active::after {
+  scale: 1 1;
+}
+
+/* Keyboard focus keeps a visible outline beyond the colour change. */
+.menu a:focus-visible::before {
+  outline: 0.06em solid var(--white);
+  outline-offset: 0.1em;
+}
+
+.menu-desc {
+  grid-area: desc;
+  align-self: start;
+  justify-self: end;
+  max-inline-size: 28rem;
+  padding: 0.75rem 1.25rem;
+  border-inline-start: 0.3rem solid var(--cyan);
+  background: var(--glass);
+  backdrop-filter: blur(6px);
+  font-family: var(--heavy);
+  font-size: 1rem;
+}
+
+.menu-desc span {
+  display: block;
+}
+
+.menu-desc span.is-new {
+  animation: surface 360ms var(--flow) 1;
+}
+
+@keyframes surface {
+  from {
+    opacity: 0;
+    translate: 0 0.5rem;
+  }
+}
+
+.controls {
+  grid-area: controls;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem 1.25rem;
+  font-family: var(--heavy);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.controls span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+kbd {
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: 1.6rem;
+  padding: 0.05rem 0.35rem;
+  border: 1px solid var(--cyan);
+  border-radius: 0.35rem;
+  background: rgb(94 230 255 / 15%);
+  color: var(--foam);
+  font-family: var(--heavy);
+  font-size: 0.75rem;
+}
+
+/* ---------- Panels ---------- */
+
+main {
+  inline-size: min(100% - 2rem, 64rem);
+  margin-inline: auto;
+}
+
+.panel {
+  padding-block: clamp(3rem, 8vw, 6rem);
+  scroll-margin-block-start: 1rem;
+}
+
+.panel-head {
+  margin-block-end: 2.5rem;
+}
+
+.panel-kicker {
+  display: inline-block;
+  margin-block-end: 0.4rem;
+  padding: 0.15rem 1rem;
+  background: var(--cyan);
+  color: var(--abyss);
+  font-family: var(--heavy);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.panel-head h2,
+.panel-title {
+  font-family: var(--display);
+  font-size: clamp(3rem, 11vw, 7.5rem);
+  font-weight: 400;
+  line-height: 0.95;
+  text-transform: uppercase;
+  transform: skewX(var(--lean));
+  transform-origin: left bottom;
+  text-shadow: 0.04em 0.04em 0 var(--blue);
+}
+
+.panel-head h2:focus {
+  outline: none;
+}
+
+.card {
+  position: relative;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  border: 1px solid var(--glass-line);
+  background: var(--glass);
+  backdrop-filter: blur(8px);
+}
+
+.card--white {
+  border: 0;
+  background: linear-gradient(120deg, var(--white) 60%, #d6f6ff);
+  color: var(--abyss);
+  clip-path: polygon(0 0, 100% 0, 97% 100%, 0 100%);
+}
+
+.card--white a {
+  color: var(--blue);
+}
+
+.lead {
+  margin-block-end: 1rem;
+  font-family: var(--serif);
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+  line-height: 1.3;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.75rem;
+  margin-block-start: 1.5rem;
+}
+
+.stats div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  border-inline-start: 0.3rem solid var(--cyan);
+  background: var(--glass);
+}
+
+.stats dt {
+  color: var(--cyan);
+  font-family: var(--heavy);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.stats dd {
+  font-family: var(--display);
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+
+/* Experience: a timeline with ring markers */
+
+.company + .company {
+  margin-block-start: 3rem;
+}
+
+.company h3 {
+  margin-block-end: 1.25rem;
+  color: var(--foam);
+  font-family: var(--display);
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.company h3::after {
+  display: block;
+  inline-size: 4rem;
+  block-size: 0.25rem;
+  margin-block-start: 0.3rem;
+  background: var(--cyan);
+  content: "";
+}
+
+.roles {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  padding-inline-start: 2.25rem;
+}
+
+.roles::before {
+  position: absolute;
+  inset-block: 0.5rem;
+  inset-inline-start: 0.6rem;
+  inline-size: 2px;
+  background: linear-gradient(var(--cyan), rgb(94 230 255 / 10%));
+  content: "";
+}
+
+.role {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(8rem, 10rem) minmax(0, 1fr);
+  gap: 0.25rem 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--glass-line);
+  background: var(--glass);
+  backdrop-filter: blur(8px);
+  transition: border-color 200ms ease;
+}
+
+.role::before {
+  position: absolute;
+  inset-block-start: 1.6rem;
+  inset-inline-start: -2.05rem;
+  inline-size: 0.9rem;
+  aspect-ratio: 1;
+  border: 2px solid var(--cyan);
+  border-radius: 50%;
+  background: var(--abyss);
+  box-shadow: 0 0 0 0.3rem rgb(94 230 255 / 15%);
+  content: "";
+}
+
+.role:hover {
+  border-color: var(--cyan);
+}
+
+.role-date {
+  grid-row: span 2;
+  align-self: start;
+  color: var(--cyan);
+  font-family: var(--heavy);
+  font-size: 0.85rem;
+}
+
+.role h4 {
+  font-family: var(--display);
+  font-size: clamp(1.3rem, 2.6vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.role p:last-child {
+  color: #dbe8ff;
+}
+
+/* Skills: glass groups with slanted tags */
+
+.skill-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.5rem;
+}
+
+.skill-group {
+  padding: 1.25rem;
+  border: 1px solid var(--glass-line);
+  border-block-start: 0.3rem solid var(--cyan);
+  background: var(--glass);
+  backdrop-filter: blur(8px);
+}
+
+.skill-group h3 {
+  margin-block-end: 1rem;
+  color: var(--cyan);
+  font-family: var(--heavy);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.chips li {
+  padding: 0.2rem 0.9rem;
+  border: 1px solid var(--cyan);
+  color: var(--foam);
+  font-family: var(--display);
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.chips li:hover {
+  background: var(--cyan);
+  color: var(--abyss);
+}
+
+/* Contact: message thread */
+
+.chat {
+  display: grid;
+  gap: 1rem;
+  max-inline-size: 40rem;
+}
+
+.chat-msg {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.chat-avatar {
+  flex: none;
+  inline-size: 3.5rem;
+  border: 0.2rem solid var(--cyan);
+  border-radius: 50%;
+  background: #cfefff;
+  filter: grayscale(1) contrast(1.3);
+}
+
+.chat-bubble {
+  position: relative;
+  display: inline-block;
+  padding: 0.8rem 1.3rem;
+  border-radius: 1.2rem 1.2rem 1.2rem 0.2rem;
+  background: var(--foam);
+  color: var(--abyss);
+  font-family: var(--heavy);
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.chat-msg--link {
+  justify-content: flex-end;
+}
+
+.chat-msg--link .chat-bubble {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.75rem;
+  min-block-size: 2.75rem;
+  border: 1px solid var(--cyan);
+  border-radius: 1.2rem 1.2rem 0.2rem 1.2rem;
+  background: linear-gradient(120deg, var(--blue), var(--deep));
+  color: var(--white);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: border-color 200ms ease;
+}
+
+.chat-msg--link .chat-bubble:hover {
+  border-color: var(--white);
+}
+
+.chat-channel {
+  color: var(--cyan);
+  font-family: var(--display);
+  font-size: 1.3rem;
+  text-transform: uppercase;
+}
+
+.back-link {
+  display: none;
+}
+
+.footer {
+  inline-size: min(100% - 2rem, 64rem);
+  margin-inline: auto;
+  padding-block: 2rem 3rem;
+  color: #c9dcff;
+  font-size: 0.85rem;
+}
+
+/* ---------- Ripple transition ---------- */
+
+.wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  visibility: hidden;
+  --x: 50%;
+  --y: 50%;
+}
+
+.wipe span {
+  position: absolute;
+  inset: 0;
+  clip-path: circle(0 at var(--x) var(--y));
+}
+
+.wipe span:nth-child(1) { background: var(--blue); }
+.wipe span:nth-child(2) { background: var(--deep); }
+.wipe span:nth-child(3) { background: var(--abyss); }
+
+.wipe.is-in,
+.wipe.is-out {
+  visibility: visible;
+}
+
+.wipe.is-in span {
+  animation: flood 300ms cubic-bezier(0.6, 0, 0.4, 1) forwards;
+}
+
+.wipe.is-in span:nth-child(2) { animation-delay: 40ms; }
+.wipe.is-in span:nth-child(3) { animation-delay: 80ms; }
+
+.wipe.is-out span {
+  clip-path: circle(150% at var(--x) var(--y));
+  animation: drain 340ms cubic-bezier(0.6, 0, 0.4, 1) forwards;
+}
+
+.wipe.is-out span:nth-child(1) { animation-delay: 80ms; }
+.wipe.is-out span:nth-child(2) { animation-delay: 40ms; }
+
+@keyframes flood {
+  to { clip-path: circle(150% at var(--x) var(--y)); }
+}
+
+/* The water recedes upward with a soft wavy edge. */
+@keyframes drain {
+  from { clip-path: polygon(0 0, 100% 0, 100% 100%, 75% 104%, 50% 100%, 25% 104%, 0 100%); }
+  to { clip-path: polygon(0 0, 100% 0, 100% 0, 75% 4%, 50% 0, 25% 4%, 0 0); }
+}
+
+/* ---------- App mode (JavaScript on): one screen at a time ---------- */
+
+.topbar {
+  display: none;
+}
+
+.js .panel,
+.js .footer {
+  display: none;
+}
+
+.js .back-link {
+  display: inline-block;
+  margin-block-start: 3rem;
+  padding: 0.4rem 1.4rem;
+  background: var(--foam);
+  color: var(--abyss);
+  font-family: var(--display);
+  font-size: 1.4rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 200ms ease;
+}
+
+.js .back-link::before {
+  content: "◀ ";
+  color: var(--blue);
+}
+
+.js .back-link:hover {
+  background: var(--cyan);
+}
+
+.js:not([data-view="menu"]) .hero {
+  display: none;
+}
+
+.js:not([data-view="menu"]) .footer {
+  display: block;
+}
+
+.js[data-view="profile"] #profile,
+.js[data-view="experience"] #experience,
+.js[data-view="skills"] #skills,
+.js[data-view="contact"] #contact {
+  display: block;
+}
+
+.js:not([data-view="menu"]) .topbar {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  inline-size: min(100% - 2rem, 64rem);
+  margin-inline: auto;
+  padding-block: 1rem;
+}
+
+.topbar-back {
+  padding: 0.25rem 1.1rem;
+  border: 1px solid var(--cyan);
+  background: var(--glass);
+  backdrop-filter: blur(6px);
+  font-family: var(--display);
+  font-size: 1.2rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.topbar-back::before {
+  content: "◀ ";
+  color: var(--cyan);
+}
+
+.topbar-name {
+  color: var(--foam);
+  font-family: var(--heavy);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Entry choreography: plays each time a screen appears. */
+.js .is-entering .menu li {
+  animation: float-in 560ms var(--flow) both;
+  animation-delay: calc(80ms + var(--i) * 70ms);
+}
+
+.js .is-entering .portrait {
+  animation: surface 700ms var(--flow) both;
+}
+
+.js .is-entering .nameplate {
+  animation: float-in 560ms var(--flow) both;
+}
+
+.js .panel.is-entering .panel-head {
+  animation: float-in 560ms var(--flow) both;
+}
+
+.js .panel.is-entering .panel-body > *,
+.js .panel.is-entering .roles > li,
+.js .panel.is-entering .chat > li {
+  animation: surface 600ms var(--flow) both;
+}
+
+.js .panel.is-entering .panel-body > :nth-child(2),
+.js .panel.is-entering li:nth-child(2) { animation-delay: 80ms; }
+.js .panel.is-entering .panel-body > :nth-child(3),
+.js .panel.is-entering li:nth-child(3) { animation-delay: 160ms; }
+.js .panel.is-entering li:nth-child(4) { animation-delay: 240ms; }
+
+@keyframes float-in {
+  from {
+    opacity: 0;
+    translate: 1.25rem 0;
+  }
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 48rem) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "name"
+      "portrait"
+      "menu"
+      "desc";
+    min-block-size: auto;
+    padding-block-end: 4rem;
+  }
+
+  .portrait {
+    inline-size: min(70%, 16rem);
+  }
+
+  .controls {
+    display: none;
+  }
+
+  .role {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .role-date {
+    grid-row: auto;
+  }
+}
+
+/* Keyboard hints and the live description only make sense with the script. */
+html:not(.js) .controls,
+html:not(.js) .menu-desc {
+  display: none;
+}
+
+/* ---------- Motion and contrast preferences ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .wipe {
+    display: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .menu a,
+  .card,
+  .role,
+  .skill-group,
+  .chat-bubble {
+    border: 1px solid CanvasText;
+  }
+
+  .menu a::before {
+    display: none;
+  }
+}
